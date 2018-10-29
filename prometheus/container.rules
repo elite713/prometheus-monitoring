@@ -1,0 +1,11 @@
+groups:
+- name: tomcat_alert
+  rules:
+  - alert: tomcat_down
+    expr: absent(container_memory_usage_bytes{name="tomcat"})
+    for: 10s
+    labels: 
+      severity: critical
+    annotations:
+      summary: "tomcat container is down for more than 10 seconds."
+      description: "Service {{$labels.instance}}/{{$labels.name}} is down."
